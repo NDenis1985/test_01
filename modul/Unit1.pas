@@ -52,7 +52,7 @@ var
 implementation
 {$R *.dfm}
 
-
+uses unit3;
 
 
 

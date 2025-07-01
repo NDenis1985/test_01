@@ -26,8 +26,6 @@ object Form1: TForm1
     TabOrder = 0
     OnDblClick = TreeView1DblClick
     OnExpanding = TreeView1Expanding
-    ExplicitTop = 0
-    ExplicitHeight = 299
   end
   object Panel1: TPanel
     Left = 0

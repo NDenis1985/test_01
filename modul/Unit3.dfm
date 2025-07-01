@@ -11,6 +11,7 @@ object Form3: TForm3
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
@@ -22,7 +23,6 @@ object Form3: TForm3
     Height = 161
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 635
     object Label1: TLabel
       Left = 16
       Top = 16
@@ -75,11 +75,18 @@ object Form3: TForm3
     Left = 0
     Top = 161
     Width = 716
-    Height = 138
+    Height = 121
     Align = alClient
     ReadOnly = True
     TabOrder = 1
     WordWrap = False
-    ExplicitTop = 167
+  end
+  object ProgressBar1: TProgressBar
+    Left = 0
+    Top = 282
+    Width = 716
+    Height = 17
+    Align = alBottom
+    TabOrder = 2
   end
 end

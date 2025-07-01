@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, System.SyncObjs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, System.SyncObjs,
+  Vcl.ComCtrls;
 
 type
   TForm3 = class(TForm)
@@ -15,10 +16,12 @@ type
     Button1: TButton;
     Memo2: TMemo;
     Button2: TButton;
+    ProgressBar1: TProgressBar;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     { Private declarations }
@@ -52,8 +55,11 @@ TFileSearchThread = class(TThread)
     FResults: TArrayResult;
     FStop : boolean;
     crThread : TCriticalSection;
+    FBytesRead : int64;
     procedure SetStop(Value: boolean);
     function GetStop: boolean;
+    function GetBytesRead: Int64;
+    procedure SetBytesRead(Value: Int64); // Обвязка для установки FBytesRead
   protected
     procedure Execute; override;
   public
@@ -61,6 +67,7 @@ TFileSearchThread = class(TThread)
     property Results: TArrayResult read FResults;
     destructor Destroy; override; // Деструктор
     property Stop: boolean read GetStop write SetStop; // Обвязка для FStop
+    property CurrentBytesRead : Int64 read GetBytesRead write SetBytesRead; // Обвязка для FBytesRead
 
   end;
 
@@ -185,6 +192,7 @@ begin
   FFinishPosition := FinishPosition;
   SetLength(FResults, Length(SearchTerms));
   crThread := TCriticalSection.Create;
+  CurrentBytesRead := 0;
 end;
 
 
@@ -194,6 +202,16 @@ begin
   crThread.Free; // Освобождаем критическую секцию
   inherited Destroy; // Вызываем деструктор родительского класса
 end;
+function TFileSearchThread.GetBytesRead: Int64;
+begin
+  crThread.Enter;
+  try
+    Result := FBytesRead; // Возвращаем текущее количество прочитанных байт
+  finally
+    crThread.Leave;
+  end;
+end;
+
 
 procedure TFileSearchThread.Execute;
 var
@@ -226,6 +244,7 @@ begin
         SetLength(Buffer, BlockSize);
         // Читаем блок данных
         BytesRead := FileStream.Read(Buffer[0], BlockSize);
+        CurrentBytesRead := CurrentBytesRead + BytesRead;
         if BytesRead = 0 then Break;
  // Поиск вхождений
         for i := 0 to BytesRead - 1 do
@@ -270,7 +289,7 @@ begin
   FileIndex := 1;
   while FileExists(FullPath) do
   begin
-    FullPath := IncludeTrailingPathDelimiter(Directory) + Format('%s<%d>%s', [BaseFileName, FileIndex, Extension]);
+    FullPath := IncludeTrailingPathDelimiter(Directory) + Format('%s_%d%s', [BaseFileName, FileIndex, Extension]);
     Inc(FileIndex);
   end;
 
@@ -301,7 +320,7 @@ begin
     end;
     XMLString.Add('</Results>'); // Конец корневого элемента
     Result := XMLString.Text; // Возвращаем XML как строку
-    XMLString.SaveToFile(dir + '\temp.xml', TEncoding.UTF8);
+    XMLString.SaveToFile(Filename, TEncoding.UTF8);
   finally
     XMLString.Free; // Освобождаем ресурсы
   end;
@@ -366,6 +385,9 @@ var
   s : string;
   ThreadCount : integer ;
   Filename    : String;
+  vCurrentBytesRead : int64;
+  x                 : integer;
+  step              : integer;
 
 begin
   try
@@ -390,6 +412,7 @@ begin
   finally
     FileStream.Free;
   end;
+  ProgressBar1.Max := 100;
 
 
   // Создаем потоки
@@ -414,21 +437,34 @@ begin
     Threads[i] := TFileSearchThread.Create(edit1.text, SearchTerms, start, finish);
     Threads[i].Start; // Запускаем поток
   end;
-
+  ProgressBar1.visible := true;
+  application.ProcessMessages;
   // Ждем завершения всех потоков
   for i := 0 to ThreadCount - 1 do
   begin
+    step := 0;
     while true do
     begin
-
-      if GetStopAllFind then
-      Threads[i].SetStop(true);
-
+      if GetStopAllFind then  Threads[i].SetStop(true);
       if Threads[i].Finished then break;
       application.ProcessMessages;
-    end;
+      step := step + 1;
 
-  end;
+      if step > 100 then
+      begin
+        vCurrentBytesRead := 0;
+        for x := 0 to ThreadCount - 1 do
+          vCurrentBytesRead := vCurrentBytesRead + Threads[x].CurrentBytesRead;
+
+          ProgressBar1.Position := trunc(vCurrentBytesRead / FileSize*100) ; // т.к. Position it is Integer
+          step := 0;
+          application.ProcessMessages;
+       end;
+
+    end; // while true do
+  end; //  for i := 0 to ThreadCount - 1 do
+   ProgressBar1.Position := ProgressBar1.Max;
+   ProgressBar1.visible := false;
 
 
 
@@ -456,7 +492,7 @@ begin
    Threads[i].Free; // Освобождаем поток
 
    RemoveDuplicatesFromArrayResult(FinalResults); // выплолняем удаление дублей в заранее отсортированном массиве.
-   Filename := GetUniqueFileName(dir+'\temp', 'temp', '.xml');
+   Filename := GetUniqueFileName(dir+'\temp\', 'temp', '.xml');
    SerializeToXML(FinalResults, Filename);
    if not GetStopAllFind then
    begin
@@ -504,6 +540,11 @@ begin
   setStopAllFind(true);
 end;
 
+procedure TForm3.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  StopAllFind := true;
+end;
+
 procedure TForm3.FormCreate(Sender: TObject);
 begin
   getdir(0, dir);
@@ -522,6 +563,16 @@ begin
     result := fStopAllFind;
   finally
     cr.Leave;
+  end;
+end;
+
+procedure TFileSearchThread.SetBytesRead(Value: Int64);
+begin
+  crThread.Enter;
+  try
+    FBytesRead := Value; // Устанавливаем текущее количество прочитанных байт
+  finally
+    crThread.Leave;
   end;
 end;
 
