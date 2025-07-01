@@ -44,9 +44,8 @@ begin
   method := TStringList.Create;
   try
     method.Add('DialogFindFile');
-    method.Add('About');
-    method.Add('ClearMemory');
     method.Add('DialogFindTextFromFile');
+    method.Add('About');
     Result := PChar(method.Text);
   finally
     method.Free;
@@ -62,7 +61,6 @@ exports
   DialogFindFile         name 'DialogFindFile',
   About                  name 'About',
   GetFunctionList        name 'GetFunctionList',
-  ClearMemory            name 'ClearMemory',
   DialogFindTextFromFile name 'DialogFindTextFromFile'  ;
 
 begin

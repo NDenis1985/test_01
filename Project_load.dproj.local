@@ -1,18 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.068,C:\work\dll_work\Unit3.dfm=C:\work\dll_work\modul\Unit3.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.473,C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Unit3.pas=C:\work\dll_work\modul\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.961,=C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.474,C:\work\dll_work\Project_load.dproj=C:\work\dll_work\Project2_exe.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.473,C:\work\dll_work\modul\Unit1.dfm=C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Unit3.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.197,=C:\work\dll_work\modul\Unit3.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.378,C:\work\dll_work\modul\Unit3.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.473,C:\work\dll_work\modul\Unit1.pas=C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.816,C:\work\dll_work\Project2.dproj=C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.068,C:\work\dll_work\Unit3.pas=C:\work\dll_work\modul\Unit3.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.786,=C:\work\dll_work\Unit3.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.673,=C:\work\dll_work\modul\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.281,=C:\work\dll_work\Unit4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.068,C:\work\dll_work\modul\Unit3.pas=C:\work\dll_work\Unit3.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.274,C:\work\dll_work\modul\Unit2.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.607,C:\work\dll_work\Project2.dproj=C:\work\dll_work\Project2_exe.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.673,=C:\work\dll_work\modul\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.816,C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\work\dll_work\Project2.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.068,C:\work\dll_work\modul\Unit3.dfm=C:\work\dll_work\Unit3.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.378,C:\work\dll_work\modul\Unit3.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.473,C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Unit3.dfm=C:\work\dll_work\modul\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.893,C:\work\dll_work\modul\Unit4.pas=C:\work\dll_work\Unit4.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.893,C:\work\dll_work\modul\Unit4.dfm=C:\work\dll_work\Unit4.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.786,=C:\work\dll_work\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.197,=C:\work\dll_work\modul\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.184,C:\work\dll_work\modul\Unit3.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.607,C:\work\dll_work\Project2_exe.dproj=C:\work\dll_work\Project2.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.474,C:\work\dll_work\Project2_exe.dproj=C:\work\dll_work\Project_load.dproj</Transaction>
   </Transactions>
 </BorlandProject>

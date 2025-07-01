@@ -102,8 +102,8 @@
             <Form>Form1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="modul\Unit3.pas">
-            <Form>Form3</Form>
+        <DCCReference Include="modul\Unit4.pas">
+            <Form>Form4</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

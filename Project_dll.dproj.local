@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.562,=C:\work\dll_work\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.510,C:\work\dll_work\Unit2.pas=C:\work\dll_work\modul\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.091,C:\Users\НДенис\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\work\dll_work\Project_dll.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.510,C:\work\dll_work\Unit2.dfm=C:\work\dll_work\modul\Unit2.dfm</Transaction>
-  </Transactions>
-</BorlandProject>
